@@ -1,27 +1,9 @@
-Design:
+The LISP interpreter has the following methods/functions to carry about the process of converting the input S-expression in either dot or list notation or both into the internal representation and then printing the s-expression in dot notation. 
 
-My grammar rules:
-<ls>  :== <CT>
-<CT> :== INT 
-	 | ID 
-	 | ( <CT> . <CT> ) 
-	 | ( <CT><CT2> 
-	 | ()
+STEPS INVOLVED IN THE INTERPRETER
+a) The input is read line by line and stored until a $ or $$ is encountered.
+b) The input is parsed to find tokens which is added to a global vector of strings called tokens. (tokenGen() function)
+c) The internal representation being a binary tree is built using the input
+d) The values in the tree is outputted to the screen.
 
-<CT2> :== ) 
-	 | [SPACE]<CT><CT2>
-
-The logic corresponding to the rules of <CT> is implemented in the function createtree() and the logic corresponding to the <CT2> is implemented in createtree2().
-
-Highlevel logic of frontend:
-1) Input is read and stored in a string untill a $ or $$ is found in the input.
-2) Input is parsed to create tokens. A global array namely 'tokens' is populated by the createtoken() function.
-3) Tree is build based on the grammer rules described above using createtree(), createtree2() functions.
-4) Tree is traversed to output the Sexperssion.
-
-
-Assumptions on input:
-1. Allowed charecters: 
-	No other charecters than space, numbers, alphabet, openbrace, close brace, '.', is acepeted. $ is not an accepted symbol. 
-	TAB is not an equvalent of space and will just be skipped over.
-2. A dollar symbol is considered end of an s-expression, even if it is not in a seperate new line. $ or $$ can be a seperate line or the end of the current line.
+The grammar for the LISP notation is implemented in the TreeBase and TreeBaseMake methods.

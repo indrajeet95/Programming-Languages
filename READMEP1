@@ -1,0 +1,12 @@
+CSE 6341: LISP Interpreter Project, Part 1
+Deadline: Oct 22nd 11:59 pm
+Author: Indrajeet Saravanan (saravanan.8)
+OSU ID: 500237730
+
+STEPS TO RUN 
+1. Run make command to compile the code
+2. Run "./P1" which will start the program
+
+MISC NOTES
+1. $ in a single line signifies the input is done
+2. $$ in a single line signifies that the previous input is the last one
