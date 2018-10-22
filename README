@@ -1,0 +1,14 @@
+Prerequisties:
+1. Please subscribe the GCC-4.9.1 package if using stdlinux as the progrom employs cpp version 11. 
+	'subscribe GCC-4.9.1' command worked for me. 
+	If compile fails, please make sure to log out and login to make the subscribe take effect.
+	(Snippet from CSE website: Changes made via the subscribe and unsubscribe commands will not take effect until you log out and back in.)
+
+Steps to compile and run:
+1. execute 'make' to compile the code and './front-end' will start the program.
+
+Assumptions on input:
+1. Allowed charecters: 
+	No other charecters than space, numbers, alphabet, openbrace, close brace, '.', is acepeted. $ is not an accepted symbol. 
+	TAB is not an equvalent of space and will just be skipped over.
+2. A dollar symbol is considered end of an s-expression, even if it is not in a seperate new line. $ or $$ can be a seperate line or the end of the current line.
