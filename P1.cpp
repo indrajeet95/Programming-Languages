@@ -96,7 +96,7 @@ Node* TreeBaseMake() {
 		root->right = right;
 		return root;
 	}
-	else if(tokens[idx][0] == '+' || tokens[idx][0] == '-' || (tokens[idx][0]>='0' && tokens[idx][0]<='9')  || (tokens[idx][0]>='A' && tokens[idx][0]<='Z') || (tokens[idx][0]>='a' && tokens[idx][0]<='z')) {
+	else if(tokens[idx][0] == '+' || tokens[idx][0] == '-' || isdigit(tokens[idx][0]) || isalpha(tokens[idx][0])) {
 		root = New(tokens[idx]);
 		idx++;
 		return root;

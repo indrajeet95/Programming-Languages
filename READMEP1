@@ -6,6 +6,7 @@ OSU ID: 500237730
 STEPS TO RUN 
 1. Run make command to compile the code
 2. Run "./P1" which will start the program
+3. Run "make clean" command incase you need to start afresh
 
 MISC NOTES
 1. $ in a single line signifies the input is done
