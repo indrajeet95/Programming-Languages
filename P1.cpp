@@ -13,7 +13,6 @@ enum class state {
 	incorrectBrace,
 	unequalBrace,
 	invalidChar,
-	incorrectParathensis,
 	wrongName,
 	extraDot
 };
@@ -84,7 +83,7 @@ Node* TreeBaseMake() {
 			idx++;
 			right = TreeBaseMake();
 			if(tokens[idx] != ")") {
-				error = state::incorrectParathensis;
+				error = state::extraDot;
 				return NULL;
 			}
 			idx++;
@@ -154,7 +153,7 @@ state tokenGen(string S) {
 		}
 		else if(S[i] == '.') {
 			if(counter <= 0)
-				return state::incorrectParathensis;
+				return state::extraDot;
 			if ((tokens.back() == ".") || (tokens.back() == "(") || S[i+1] == ')') {
 				return state::extraDot;
 			}
@@ -202,17 +201,15 @@ state checkP(string s) {
 
 void printError(state current) {
 	if(current == state::incorrectBrace)
-		cout<<"ERROR: Incorrectly placed opening and closing paranthesis" << endl;
+		cout<<"**error: order of parenthesis incorrect**" << endl;
 	else if(current == state::unequalBrace)
-		cout<<"ERROR: Unequal opening and closing paranthesis" << endl;
+		cout<<"**error: parenthesis matching unequal**" << endl;
 	else if(current == state::invalidChar)
-		cout<<"ERROR: Invalid character found in the input" << endl;
+		cout<<"**error: unexpected special character**" << endl;
 	else if(current == state::extraDot)
-		cout<<"ERROR: Unexpected dot found" << endl;
-	else if(current == state::incorrectParathensis)
-		cout<<"ERROR: Missing Paranthesis" << endl;
+		cout<<"**error: Unexpected dot**" << endl;
 	else if(current == state::wrongName)
-		cout << "ERROR: The size of the token is beyond limit" << endl;
+		cout <<"**error: size of the token is beyond limit**" << endl;
 }
 
 void clearTokens() {
