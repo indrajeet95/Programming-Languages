@@ -14,7 +14,7 @@ enum class state {
 	unequalBrace,
 	invalidChar,
 	incorrectParathensis,
-	incorrectName,
+	wrongName,
 	extraDot
 };
 
@@ -96,7 +96,7 @@ Node* TreeBaseMake() {
 		root->right = right;
 		return root;
 	}
-	else if((tokens[idx][0] == '-') || (tokens[idx][0]>='0' && tokens[idx][0]<='9')  || (tokens[idx][0]>='A' && tokens[idx][0]<='Z') || (tokens[idx][0]>='a' && tokens[idx][0]<='z')) {
+	else if(tokens[idx][0] == '+' || tokens[idx][0] == '-' || (tokens[idx][0]>='0' && tokens[idx][0]<='9')  || (tokens[idx][0]>='A' && tokens[idx][0]<='Z') || (tokens[idx][0]>='a' && tokens[idx][0]<='z')) {
 		root = New(tokens[idx]);
 		idx++;
 		return root;
@@ -123,16 +123,22 @@ state tokenGen(string S) {
 				T = T + S[i];
 				i++;
 			}
-			tokens.push_back(T);
+			if(i - lenT > 10)
+				return state::wrongName;
+			else
+				tokens.push_back(T);
 		}
-		else if(isdigit(S[i]) || S[i] == '-') {
+		else if(isdigit(S[i]) || S[i] == '-' || S[i] == '+') {
 			T = S[i];
 			i++;
 			while(isdigit(S[i])) {
 				T = T + S[i];
 				i++;
 			}
-			tokens.push_back(T);
+			if(i - lenT > 6)
+				return state::wrongName;
+			else
+				tokens.push_back(T);
 		}
 		else if(S[i] == '(') {
 			if(S[i-1] == ')')
@@ -194,17 +200,19 @@ state checkP(string s) {
 		return state::unequalBrace;
 }
 
-void printError(state flag) {
-	if(flag == state::incorrectBrace)
+void printError(state current) {
+	if(current == state::incorrectBrace)
 		cout<<"ERROR: Incorrectly placed opening and closing paranthesis" << endl;
-	else if(state::unequalBrace == flag)
+	else if(current == state::unequalBrace)
 		cout<<"ERROR: Unequal opening and closing paranthesis" << endl;
-	else if(state::invalidChar == flag)
+	else if(current == state::invalidChar)
 		cout<<"ERROR: Invalid character found in the input" << endl;
-	else if(state::extraDot == flag)
+	else if(current == state::extraDot)
 		cout<<"ERROR: Unexpected dot found" << endl;
-	else if(state::incorrectParathensis == flag)
-		cout<<"ERROR: Missing Paranthesis" << endl;		
+	else if(current == state::incorrectParathensis)
+		cout<<"ERROR: Missing Paranthesis" << endl;
+	else if(current == state::wrongName)
+		cout << "ERROR: The size of the token is beyond limit" << endl;
 }
 
 void clearTokens() {
@@ -246,15 +254,11 @@ void executeExp() {
 	return;
 }
 
-void addInput(string s) {
-	if(s.back() != '.' && s.back() != '$')
-		s.append(" ");
-	inputExp = inputExp + s;
-}
-
 state parseString(string line) {
 	int len = line.length();
-	addInput(line);
+	if(line.back() != '.' && line.back() != '$')
+		line.append(" ");
+	inputExp = inputExp + line;
 	if(line == "$") {
 			inputExp.pop_back();
 			executeExp();
