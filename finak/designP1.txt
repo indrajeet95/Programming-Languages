@@ -1,0 +1,12 @@
+The LISP interpreter has the following methods/functions to carry about the process of converting the input S-expression in either dot or list notation or both into the internal representation and then printing the s-expression in dot notation.
+
+STEPS INVOLVED IN THE INTERPRETER
+a) The input is read line by line and stored until a $ or $$ is encountered.
+b) The input is parsed to find tokens which is added to a global vector of strings called tokens. (tokenGen() function)
+c) The internal representation being a binary tree is built using the input
+d) The values in the tree is outputted to the screen.
+
+The grammar for the LISP notation is implemented in the TreeBase and TreeBaseMake methods.
+
+NOTE:
+I discussed with my friends to get an idea about how to structure the code meaning we discussed all possible functions that we would require to solve the problem.
