@@ -1,0 +1,43 @@
+Steps to compile and run:
+1. execute 'make' to compile the code and './front-end' will start the program.
+
+Design:
+
+My grammar rules:
+<ls>  :== <CT>
+<CT> :== INT 
+	 | ID 
+	 | ( <CT> . <CT> ) 
+	 | ( <CT><CT2> 
+	 | ()
+
+<CT2> :== ) 
+	 | [SPACE]<CT><CT2>
+
+The logic corresponding to the rules of <CT> is implemented in the function createtree() and the logic corresponding to the <CT2> is implemented in createtree2().
+
+Highlevel logic of frontend:
+1) Input is read and stored in a string untill a $ or $$ is found in the input.
+2) Input is parsed to create tokens. A global array namely 'tokens' is populated by the createtoken() function.
+3) Tree is build based on the grammer rules described above using createtree(), createtree2() functions.
+4) Tree is traversed to output the Sexperssion.
+
+Assumptions on input:
+1. Allowed charecters: 
+	No other charecters than space, numbers, alphabet, openbrace, close brace, '.', is acepeted. $ is not an accepted symbol. 
+	TAB is not an equvalent of space and will just be skipped over.
+2. A dollar symbol is considered end of an s-expression, even if it is not in a seperate new line. $ or $$ can be a seperate line or the end of the current line.
+
+Analyser Class:
+	Reads the input and create the tree. The tree is then passed to the Evaluator class to evaluate the actual Sexpression.
+
+EvalClass:
+	Has the implemention of all the primitive functions mentioned in the project requirement.
+
+Design choices:
+	1) The primitive functions are given precedence over the defined functions.
+	2) Any non NIL expression returned by the condition is bring treated as T in evcon. 
+	3) The Symatic correctness of the function body is verfied only at the time of fucntion evaluation. In other words, Symatic correctness of the function body is not verified at the Fucntion definition via DEFUN. 
+	4) COND will return TRUE is when it finds the first TRUE evalusted condition is found. Subsequent arguments are not evaluated. So, the symantic correctness of the subsequent arguments are verfied once a TRUE argument is found.
+	5) Program exists if any error case is detected.
+
